@@ -1,9 +1,23 @@
 #include <stdio.h>
 
-/*
- *main - alphabet in lowercase, and then in uppercase, followed by a new line.
+/**
+ *followed by a new line
  *
- * Returns : Always (0) Success
+ * Return: Always (0) Success
  */
 
+int main(void)
+{
+	char ch;
 
+	for (ch = 'a'; ch <= 'z'; ch++)
+	{
+		putchar(ch);
+	}
+	for (ch = 'A'; ch <= 'Z'; ch++)
+	{
+		putchar(ch);
+	}
+		putchar('\n');
+		return (0);
+}
