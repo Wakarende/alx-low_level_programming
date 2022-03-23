@@ -1,14 +1,15 @@
 #include "main.h"
 
 /**
- * *_strcat - concatenates two strings
+ * *_strncat - function that concatenates strings
  * @dest: destination string
  * @src: string to be concatenated
+ * @n: number of bytes from src
  *
- * Return: none
+ * Return: dest
  */
 
-char *_strcat(char *dest, char *src)
+char *_strncat(char *dest, char *src, int n)
 {
 	int l1, l2, i;
 
@@ -23,10 +24,13 @@ char *_strcat(char *dest, char *src)
 	{
 		l2++;
 	}
+
 	for (i = 0; i <= l2; i++)
 	{
-		dest[l1 + 1] = src[i];
+		if (l2 < n)
+		{
+			dest[l1 + 1] = src[i];
+		}
 	}
 	return (dest);
-
 }
