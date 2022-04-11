@@ -1,83 +1,50 @@
 #include "dog.h"
+#include <stdlib.h>
 
 /**
- * new_dog - creates a new dog
- * @name: name of dog
- * @age: age of dog
- * @owner: owner of dog
- * Return: malloced dog_t
+ * _strdup - duplicates a string
+ * @str: the string to duplicate
+ *
+ * Return: pointer to the duplicated string
  */
-
-dog_t *new_dog(char *name, float age, char *owner)
-{
-	char *n, *o;
-	dog_t *new_dog = malloc(sizeof(dog_t));
-
-	if (!new_dog || !name || !owner)
-	{
-		return (NULL);
-	}
-	n = malloc(_strlen(name) + 1);
-	if (!n)
-	{
-		return (free(new_dog), NULL);
-	}
-	n = _strdup(name);
-	new_dog->name = n;
-	o = malloc(_strlen(owner) + 1);
-	if (!o)
-	{
-		return (free(new_dog->name), free(new_dog), NULL);
-	}
-	o = _strdup(owner);
-	new_dog->owner = o;
-	new_dog->age = age;
-	return (new_dog);
-}
-
-/**
- * _strlen - returns the length of a string
- * @s: string s
- * Return: length of string
- */
-
-int _strlen(char *s)
-{
-	char *p = s;
-
-	while (*s)
-	{
-		s++;
-	}
-	return (s - p);
-}
-
-/**
- * _strdup - returns a pointer to a newly allocated space in memory,
- * which contains a copy of the string given as a parameter.
- * @str: string to be copied
- * Return: copied string
- */
-
 char *_strdup(char *str)
 {
-	int i, len;
-	char *copy;
+	int length = 0;
+	char *ret;
 
-	if (!str)
-	{
+	if (str == NULL)
 		return (NULL);
-	}
-	len = _strlen(str);
-	copy = malloc(sizeof(char) * len + 1);
-	if (!copy)
-	{
+	while (*str++)
+		length++;
+	ret = malloc(sizeof(char) * (length + 1));
+	if (!ret)
 		return (NULL);
-	}
-	for (i = 0; i < len; i++)
-	{
-		copy[i] = str[i];
-	}
-	copy[i] = 0;
-	return (copy);
+	for (length++; length--;)
+		ret[length] = *--str;
+	return (ret);
+}
+
+
+/**
+ * new_dog - instantiates a dawg
+ * @name: the dawgy name
+ * @age: the dawgy age
+ * @owner: the dawgy owner
+ *
+ * Return: pointer to new dawg.
+ */
+dog_t *new_dog(char *name, float age, char *owner)
+{
+	dog_t *d = malloc(sizeof(dog_t));
+
+	if (!d)
+		return (NULL);
+	d->name = _strdup(name);
+	if (name && !d->name)
+		return (free(d), NULL);
+	d->owner = _strdup(owner);
+	if (owner && !d->owner)
+		return (free(d->name), free(d), NULL);
+	d->age = age;
+	return (d);
 }
